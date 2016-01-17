@@ -1,6 +1,6 @@
 {
   "name": "lunch-finder",
-  "description": "Find place to eat a lunch.",
+  "description": "Find a place to eat lunch.",
   "author": "Jakub Mach <j.mach@budmore.pl>",
   "version": "0.1.0",
   "private": true,
