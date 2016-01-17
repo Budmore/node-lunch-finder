@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PlaceSchema = new Schema({
-	name: {type: String, require: true},
+	name: {type: String, required: true},
 	description: String,
 	raitings: Number,
 	imageUrl: String,

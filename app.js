@@ -70,7 +70,11 @@ router.get('/', function(req, res) {
 
 router
 	// Places to eat
-	.get('/places-to-eat', placesToEatApi.getAll);
+	.post('/places-to-eat', placesToEatApi.create)
+	.get('/places-to-eat', placesToEatApi.getAll)
+	.get('/places-to-eat/:id', placesToEatApi.getById)
+	.put('/places-to-eat/:id', placesToEatApi.updateById)
+	.delete('/places-to-eat/:id', placesToEatApi.deleteById);
 
 module.exports = {
 	startServer: startServer,
