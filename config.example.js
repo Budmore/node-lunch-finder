@@ -1,5 +1,4 @@
 var config = {
-	environment: 'DEVELOPMENT', // PRODUCTION, DEVELOPMENT
 	siteUrl: 'http://lunch-finder.budmore.pl',
 	port: 4000,
 	version: '/api/v1',

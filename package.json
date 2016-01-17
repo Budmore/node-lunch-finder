@@ -15,8 +15,8 @@
   "scripts": {
     "start": "NODE_ENV=development nodemon app.js",
     "test": "NODE_ENV=spec node_modules/mocha/bin/mocha test/*",
-    "test-tdd": "NODE_ENV=spec nodemon node_modules/mocha/bin/mocha test/*",
-    "test-coverage": "NODE_ENV=spec istanbul cover node_modules/mocha/bin/_mocha -- test/*"
+    "tdd": "NODE_ENV=spec nodemon node_modules/mocha/bin/mocha test/*",
+    "coverage": "NODE_ENV=spec istanbul cover node_modules/mocha/bin/_mocha -- test/*"
   },
   "devDependencies": {
     "chai": "^3.4.1",

@@ -29,11 +29,11 @@ var baseUrl = 'http://localhost:' + port + version;
 describe('App.js', function() {
 
 	before(function(done) {
-		app.start(port, done);
+		app.startServer(port, done);
 	});
 
 	after(function(done) {
-		app.stop(done);
+		app.stopServer(done);
 	});
 
 	it('should get isAlive message from the server', function(done) {

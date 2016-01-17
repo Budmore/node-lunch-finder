@@ -1,13 +1,9 @@
 var express    = require('express');
-var app        = express();
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 
 var config     = require('./config');
-
-
-
-
+var app        = express();
 
 
 // CONFIGURATION
@@ -28,16 +24,16 @@ if (NODE_ENV && config.db && config.db[NODE_ENV]){
 // START THE SERVER
 // -----------------------------------------------------------------------------
 var server;
-var start = exports.start = function(port, callback) {
+var startServer = function(port, callback) {
 	server = app.listen(port, callback);
 };
 
-exports.stop = function(callback) {
+var stopServer = function(callback) {
 	server.close(callback);
 };
 
 if (NODE_ENV === 'development') {
-	start(port, function() {
+	startServer(port, function() {
 		console.log('Working at the http://localhost:' + port + config.version);
 	});
 }
@@ -58,8 +54,6 @@ app.use(allowCrossDomain);
 
 
 
-
-
 // ROUTES
 // -----------------------------------------------------------------------------
 
@@ -72,4 +66,7 @@ router.get('/', function(req, res) {
 });
 
 
-
+module.exports = {
+	startServer: startServer,
+	stopServer: stopServer
+};
