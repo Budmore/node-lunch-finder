@@ -59,12 +59,18 @@ app.use(allowCrossDomain);
 
 var router = express.Router();
 
+var placesToEatApi = require('./app/places-to-eat/places-to-eat.api');
+
+
 app.use(config.version, router); //Add url prefix eg.'/api/v1'
 
 router.get('/', function(req, res) {
 	res.send('isAlive');
 });
 
+router
+	// Places to eat
+	.get('/places-to-eat', placesToEatApi.getAll);
 
 module.exports = {
 	startServer: startServer,
