@@ -1,0 +1,30 @@
+{
+  "name": "lunch-finder",
+  "description": "Find place to eat a lunch.",
+  "author": "Jakub Mach <j.mach@budmore.pl>",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "mongoose": "^4.3.6"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development nodemon app.js",
+    "test": "NODE_ENV=spec node_modules/mocha/bin/mocha test/*",
+    "test-tdd": "NODE_ENV=spec nodemon node_modules/mocha/bin/mocha test/*",
+    "test-coverage": "NODE_ENV=spec istanbul cover node_modules/mocha/bin/_mocha -- test/*"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.3.4",
+    "mocha-mongoose": "^1.1.1",
+    "mongodb": "^2.1.4",
+    "nodemon": "^1.8.1",
+    "superagent": "^1.6.1"
+  }
+}
