@@ -4,11 +4,11 @@ var Schema = mongoose.Schema;
 var PlaceSchema = new Schema({
 	name: {type: String, required: true},
 	description: String,
-	raitings: Number,
+	raiting: Number,
 	imageUrl: String,
 	websiteUrl: String,
 	tags: [{
-		name: String,
+		_id : false,
 		type: {
 			type: String
 		}

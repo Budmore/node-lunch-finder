@@ -2,7 +2,7 @@ var PlaceModel = require('./places-to-eat.model');
 var config = require('../../config');
 
 var maxLimit = config.queryLimit || 100;
-var defaultRaitings = config.defaultRaitings || 1000;
+var defaultRaiting = config.defaultRaiting || 1000;
 
 module.exports = {
 
@@ -10,7 +10,7 @@ module.exports = {
 	 * Get all places from db. Request is limited by maxLimit value
 	 *
 	 * Method: GET
-	 * http://api.lunch-finder.budmore.pl/v1/places-to-eat/
+	 * http://api.lunchfinder.budmore.pl/v1/places-to-eat/
 	 *
 	 * @param  {object} res Respond data
 	 * @param  {object} req Request data
@@ -49,7 +49,7 @@ module.exports = {
 	 * Create new place
 	 *
 	 * Method: POST
-	 * http://api.lunch-finder.budmore.pl/v1/places-to-eat/
+	 * http://api.lunchfinder.budmore.pl/v1/places-to-eat/
 	 *
 	 * @param  {object} req Request data
 	 * @param  {object} res Respond data
@@ -59,7 +59,7 @@ module.exports = {
 		var newPlace = {
 			name: req.body.name,
 			description: req.body.description,
-			raitings: defaultRaitings,
+			raiting: defaultRaiting,
 			imageUrl: req.body.imageUrl,
 			websiteUrl: req.body.websiteUrl,
 			tags: req.body.tags,
@@ -88,7 +88,7 @@ module.exports = {
 	 * Get place by id.
 	 *
 	 * Method: GET
-	 * http://api.lunch-finder.budmore.pl/v1/places-to-eat/:id
+	 * http://api.lunchfinder.budmore.pl/v1/places-to-eat/:id
 	 *
 	 * @param  {object} req Request data
 	 * @param  {object} req.id Place id
@@ -116,7 +116,7 @@ module.exports = {
 	 * Can't update properties: raiting, _id, modified
 	 *
 	 * Method: PUT
-	 * http://api.lunch-finder.budmore.pl/v1/places-to-eat/:id
+	 * http://api.lunchfinder.budmore.pl/v1/places-to-eat/:id
 	 *
 	 * @param  {object} res Respond data
 	 * @param  {object} req Request data
@@ -152,7 +152,7 @@ module.exports = {
 	 * Delete the place. Find it by id in the request params
 	 *
 	 * Method: DELETE
-	 * http://api.lunch-finder.budmore.pl/v1/places-to-eat/:id
+	 * http://api.lunchfinder.budmore.pl/v1/places-to-eat/:id
 	 *
 	 * @param  {object} req Request data
 	 * @param  {object} res Respond data
