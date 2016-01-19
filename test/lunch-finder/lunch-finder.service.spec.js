@@ -10,8 +10,8 @@ describe('lunch-finder.service.js', function() {
 
 	var mockedList = {
 		data: [
-			{ name: 'foo', raiting: 2},
-			{ name: 'bar', raiting: 3},
+			{ name: 'foo', rating: 2},
+			{ name: 'bar', rating: 3},
 		]
 	};
 	var stub;
@@ -24,14 +24,14 @@ describe('lunch-finder.service.js', function() {
 		stub.restore();
 	});
 
-	it('should generateRaitingList() - 1 - resolve (success)', function(done) {
+	it('should generateRatingList() - 1 - resolve (success)', function(done) {
 		var dfd = q.defer();
 		var successCb = sinon.spy();
 		var errorCb = sinon.spy();
 
 		stub.returns(dfd.promise);
 
-		lunchFinderService.generateRaitingList()
+		lunchFinderService.generateRatingList()
 			.then(successCb, errorCb)
 			.done(function() {
 				assert.isTrue(successCb.called);
@@ -44,14 +44,14 @@ describe('lunch-finder.service.js', function() {
 
 	});
 
-	it('should generateRaitingList() - 2 - reject (error)', function(done) {
+	it('should generateRatingList() - 2 - reject (error)', function(done) {
 		var dfd = q.defer();
 		var successCb = sinon.spy();
 		var errorCb = sinon.spy();
 
 		stub.returns(dfd.promise);
 
-		lunchFinderService.generateRaitingList()
+		lunchFinderService.generateRatingList()
 			.then(successCb, errorCb)
 			.done(function() {
 				assert.isFalse(successCb.called);
@@ -63,7 +63,7 @@ describe('lunch-finder.service.js', function() {
 	});
 
 
-	it('should generateRaitingList() - 3 - getAll return undefined -> reject (error)', function(done) {
+	it('should generateRatingList() - 3 - getAll return undefined -> reject (error)', function(done) {
 		var dfd = q.defer();
 		var successCb = sinon.spy();
 		var errorCb = sinon.spy();
@@ -71,7 +71,7 @@ describe('lunch-finder.service.js', function() {
 		stub.returns(dfd.promise);
 
 
-		lunchFinderService.generateRaitingList()
+		lunchFinderService.generateRatingList()
 			.then(successCb, errorCb)
 			.done(function() {
 				assert.isFalse(successCb.called);
@@ -83,7 +83,7 @@ describe('lunch-finder.service.js', function() {
 
 	});
 
-	it('should generateRaitingList() - 4 - getAll return object -> reject (error)', function(done) {
+	it('should generateRatingList() - 4 - getAll return object -> reject (error)', function(done) {
 		var dfd = q.defer();
 		var successCb = sinon.spy();
 		var errorCb = sinon.spy();
@@ -91,7 +91,7 @@ describe('lunch-finder.service.js', function() {
 		stub.returns(dfd.promise);
 
 
-		lunchFinderService.generateRaitingList()
+		lunchFinderService.generateRatingList()
 			.then(successCb, errorCb)
 			.done(function() {
 				assert.isFalse(successCb.called);
@@ -104,7 +104,7 @@ describe('lunch-finder.service.js', function() {
 	});
 
 
-	it('should generateRaitingList() - 5 - spy on the listUtils', function(done) {
+	it('should generateRatingList() - 5 - spy on the listUtils', function(done) {
 		var dfd = q.defer();
 		var successCb = sinon.spy();
 		var errorCb = sinon.spy();
@@ -113,7 +113,7 @@ describe('lunch-finder.service.js', function() {
 		var stub2 = sinon.stub(listUtils, 'getListByRating');
 
 
-		lunchFinderService.generateRaitingList()
+		lunchFinderService.generateRatingList()
 			.then(successCb, errorCb)
 			.done(function() {
 				assert.isTrue(listUtils.getListByRating.called);

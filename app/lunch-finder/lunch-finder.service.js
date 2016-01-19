@@ -2,14 +2,14 @@ var q = require('q');
 var listUtils = require('../utils/list-utils');
 var placesToEatService = require('../places-to-eat/places-to-eat.service');
 
-var raitingList = [];
+var ratingList = [];
 
 module.exports = {
 
 	/**
-	 * Generate new raiting list.
+	 * Generate new rating list.
 	 */
-	generateRaitingList: function() {
+	generateRatingList: function() {
 		var dfd = q.defer();
 
 		placesToEatService.getAll().then(
@@ -22,7 +22,7 @@ module.exports = {
 				var newList = listUtils.getListByRating(list.data);
 
 				if (newList) {
-					raitingList = newList;
+					ratingList = newList;
 				}
 
 				dfd.resolve();
@@ -44,7 +44,7 @@ module.exports = {
 	 */
 	getRandomPlaces: function(counter) {
 
-		var results = listUtils.getListWithRandomItems(raitingList, counter);
+		var results = listUtils.getListWithRandomItems(ratingList, counter);
 
 		return results;
 	}
@@ -53,12 +53,11 @@ module.exports = {
 
 
 /**
- * Create new raiting list if recive event that some record has been updated.
+ * Create new rating list if recive event that some record has been updated.
  */
-// @TODO: create event to regenerate raiting list
+// @TODO: create event to regenerate rating list
 /*var emitter = new EventEmitter();
 emitter.on('LIST_UPDATED', function() {
-	console.log('aaaaaaaaa');
-	service.generateRaitingList();
+	service.generateRatingList();
 });
 */

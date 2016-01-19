@@ -2,7 +2,7 @@ var config = {
 	siteUrl: 'http://lunch-finder.budmore.pl',
 	port: 4000,
 	queryLimit: 100,
-	defaultRaiting: 1000,
+	defaultRating: 1000,
 	version: '/api/v1',
 	secret: '#7D0vqas#!@#p[{+DF2^%$yq1w5Qusok#@B1312=)*(&asd%QAd312BrvuGMKbIf_',
 	db: {

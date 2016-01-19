@@ -34,7 +34,6 @@ describe('places-to-eat.api.js', function() {
 			var placesList = [];
 
 			for ( var i=0; i<150; i+=1) {
-				mockedPlace.name += i;
 				placesList.push(mockedPlace);
 			}
 
@@ -244,10 +243,10 @@ describe('places-to-eat.api.js', function() {
 				});
 		});
 
-		it('should updateById() - 2 - can\'t update raiting', function(done) {
+		it('should updateById() - 2 - can\'t update rating', function(done) {
 			var updatedPlace = {
 				_id: '55166e7afb1e9a18818a1337',
-				raiting: 2000
+				rating: 2000
 			};
 
 			request
@@ -258,7 +257,7 @@ describe('places-to-eat.api.js', function() {
 					assert.equal(res.status, 200);
 
 					assert.equal(res.body._id, updatedPlace._id);
-					assert.notEqual(res.body.raiting, updatedPlace.raiting);
+					assert.notEqual(res.body.rating, updatedPlace.rating);
 					done();
 				});
 		});
@@ -266,7 +265,7 @@ describe('places-to-eat.api.js', function() {
 		it('should updateById() - 3 - place does not exists', function(done) {
 			var updatedPlace = {
 				_id: 'fake-id',
-				raiting: 2000
+				rating: 2000
 			};
 
 			request

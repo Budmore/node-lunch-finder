@@ -2,7 +2,7 @@ var PlaceModel = require('./places-to-eat.model');
 var config = require('../../config');
 
 var maxLimit = config.queryLimit || 100;
-var defaultRaiting = config.defaultRaiting || 1000;
+var defaultRating = config.defaultRating || 1000;
 
 module.exports = {
 
@@ -59,7 +59,7 @@ module.exports = {
 		var newPlace = {
 			name: req.body.name,
 			description: req.body.description,
-			raiting: defaultRaiting,
+			rating: defaultRating,
 			imageUrl: req.body.imageUrl,
 			websiteUrl: req.body.websiteUrl,
 			tags: req.body.tags,
@@ -113,7 +113,7 @@ module.exports = {
 
 	/**
 	 * Update place. Find it by id in the request param.
-	 * Can't update properties: raiting, _id, modified
+	 * Can't update properties: rating, _id, modified
 	 *
 	 * Method: PUT
 	 * http://api.lunchfinder.budmore.pl/v1/places-to-eat/:id
@@ -129,7 +129,7 @@ module.exports = {
 		};
 
 		var updatedPlace = req.body;
-		delete updatedPlace.raiting;
+		delete updatedPlace.rating;
 		delete updatedPlace._id;
 		updatedPlace.modified = new Date();
 

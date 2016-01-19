@@ -6,7 +6,7 @@ module.exports = {
 
 	random: function(req, res) {
 		// @TODO create init function or emit some event?
-		lunchFinderService.generateRaitingList().then(function() {
+		lunchFinderService.generateRatingList().then(function() {
 			var places = lunchFinderService.getRandomPlaces();
 			res.json(places);
 

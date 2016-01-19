@@ -28,12 +28,10 @@ module.exports = {
 		if (!list || list.constructor !== Array) {
 			return;
 		}
-
 		var results = [];
 
 		list.map(function(item) {
 			var rating = item.rating || 0;
-
 			for (var i = 0; i < rating; i += 1) {
 				results.push(item);
 			}
