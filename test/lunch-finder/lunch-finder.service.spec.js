@@ -5,6 +5,7 @@ var lunchFinderService = require('../../app/lunch-finder/lunch-finder.service');
 var placesToEatService = require('../../app/places-to-eat/places-to-eat.service');
 var listUtils = require('../../app/utils/list-utils');
 
+
 describe('lunch-finder.service.js', function() {
 
 	var mockedList = {
@@ -121,6 +122,18 @@ describe('lunch-finder.service.js', function() {
 			});
 
 		dfd.resolve(mockedList);
+	});
+
+	it('should getRandomPlaces() - 1 - spy on the utils', function(done) {
+		var spy = sinon.stub(listUtils, 'getListWithRandomItems');
+		var counter = 96;
+
+		lunchFinderService.getRandomPlaces(counter);
+
+		assert.isTrue(spy.called);
+		assert.equal(spy.args[0][1], counter);
+		spy.restore();
+		done();
 	});
 
 });

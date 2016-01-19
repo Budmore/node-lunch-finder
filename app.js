@@ -59,6 +59,7 @@ app.use(allowCrossDomain);
 
 var router = express.Router();
 
+var lunchFinderApi = require('./app/lunch-finder/lunch-finder.api');
 var placesToEatApi = require('./app/places-to-eat/places-to-eat.api');
 
 
@@ -69,6 +70,9 @@ router.get('/', function(req, res) {
 });
 
 router
+	// Lunch finder
+	.post('/random', lunchFinderApi.random)
+
 	// Places to eat
 	.post('/places-to-eat', placesToEatApi.create)
 	.get('/places-to-eat', placesToEatApi.getAll)

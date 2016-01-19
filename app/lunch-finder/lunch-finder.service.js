@@ -1,8 +1,8 @@
-var placesToEatService = require('../places-to-eat/places-to-eat.service');
-var listUtils = require('../utils/list-utils');
 var q = require('q');
-var raitingList = [];
+var listUtils = require('../utils/list-utils');
+var placesToEatService = require('../places-to-eat/places-to-eat.service');
 
+var raitingList = [];
 
 module.exports = {
 
@@ -34,7 +34,31 @@ module.exports = {
 		);
 
 		return dfd.promise;
+	},
+
+	/**
+	 * Get array with random places to eat.
+	 *
+	 * @param  {number} counter - How many places
+	 * @return {array}
+	 */
+	getRandomPlaces: function(counter) {
+
+		var results = listUtils.getListWithRandomItems(raitingList, counter);
+
+		return results;
 	}
 
-
 };
+
+
+/**
+ * Create new raiting list if recive event that some record has been updated.
+ */
+// @TODO: create event to regenerate raiting list
+/*var emitter = new EventEmitter();
+emitter.on('LIST_UPDATED', function() {
+	console.log('aaaaaaaaa');
+	service.generateRaitingList();
+});
+*/

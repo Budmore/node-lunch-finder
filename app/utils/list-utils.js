@@ -2,7 +2,8 @@ module.exports = {
 
 
 	config: {
-		counter: 3
+		counter: 3,
+		maxLimit: 10
 	},
 
 
@@ -77,7 +78,9 @@ module.exports = {
 			return list;
 		}
 
-		counter = counter || this.config.counter;
+		counter = Math.abs(counter) || this.config.counter;
+		counter = Math.min(counter, this.config.maxLimit);
+
 
 		var results = [];
 

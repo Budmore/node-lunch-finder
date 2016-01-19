@@ -328,7 +328,7 @@ describe('places-to-eat.api.js', function() {
 				});
 		});
 
-		it('should updateById() - 2 - place does not exists', function(done) {
+		it('should deleteById() - 2 - place does not exists', function(done) {
 			var updatedPlace = {
 				_id: 'fake-id'
 			};
