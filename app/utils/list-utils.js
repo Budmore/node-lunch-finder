@@ -69,22 +69,38 @@ module.exports = {
 	 */
 	getListWithRandomItems: function(list, counter) {
 		if (!list || list.constructor !== Array) {
-			return;
+			return [];
 		}
 
-		if (list.length < 1) {
+		counter = counter || this.config.counter;
+		counter = Math.min(counter, this.config.maxLimit);
+
+		var listLength = list.length;
+
+		if (counter >= listLength) {
 			return list;
 		}
 
-		counter = Math.abs(counter) || this.config.counter;
-		counter = Math.min(counter, this.config.maxLimit);
-
-
 		var results = [];
+		var pulledIds = {};
 
-		for ( var i=0; i<counter; i+=1 ) {
+		for (var i=0; i<counter; i+=1) {
+
 			var item = this.getRandomItem(list);
-			results.push(item);
+
+			if (pulledIds[item._id]) {
+				if (i < listLength) {
+					counter += 1;
+				}
+
+				continue;
+			}
+
+			if (item._id) {
+				pulledIds[item._id] = true;
+				results.push(item);
+			}
+
 		}
 
 		return results;

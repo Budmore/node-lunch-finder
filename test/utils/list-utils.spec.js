@@ -25,7 +25,21 @@ var mockedLists = {
 
 	],
 
+
 	emptyList: [],
+	smallList: [
+		{ name: 'foo'},
+		{ name: 'bar'},
+		{ name: 'boo'}
+	],
+	randomList: [
+		{_id: 'a__', name: 'foo'},
+		{_id: 'bbb', name: 'bar'},
+		{_id: 'bbb', name: 'bar'},
+		{_id: 'bbb', name: 'bar'},
+		{_id: 'bbb', name: 'bar'},
+		{name: 'no id'}
+	],
 	singleElement: [
 		{ title: 'Woow' }
 	]
@@ -80,24 +94,59 @@ describe('list-utils.js', function () {
 
 	// getListWithRandomItems()
 
-	it('should getListWithRandomItems() - 1 - counter test', function() {
-		var results0 = listUtils.getListWithRandomItems(mockedLists.lunch);
-		var results1= listUtils.getListWithRandomItems(mockedLists.lunch, 1);
-		var results2 = listUtils.getListWithRandomItems(mockedLists.singleElement, 4);
 
-		assert.equal(results0.length, 3);
-		assert.equal(results1.length, 1);
-		assert.equal(results2.length, 4);
-	});
-
-	it('should getListWithRandomItems() - 2 - incorrect arguments', function() {
+	it('should getListWithRandomItems() - 1 - incorrect arguments', function() {
 		var result = listUtils.getListWithRandomItems();
-		assert.isUndefined(result);
+		assert.isArray(result);
 	});
 
-	it('should getListWithRandomItems() - 3 - empty list', function() {
+	it('should getListWithRandomItems() - 2 - empty list', function() {
 		var result = listUtils.getListWithRandomItems(mockedLists.emptyList);
 		assert.equal(result.length, 0);
 	});
+
+	it('should getListWithRandomItems() - 3 - Counter is the same size like list', function() {
+		var counter = mockedLists.smallList.length;
+		var result = listUtils.getListWithRandomItems(mockedLists.smallList, counter);
+
+		assert.equal(result, mockedLists.smallList);
+	});
+
+	it('should getListWithRandomItems() - 4 - Counter is bigger than list', function() {
+		var counter = mockedLists.smallList.length + 1;
+		var result = listUtils.getListWithRandomItems(mockedLists.smallList, counter);
+
+		assert.equal(result, mockedLists.smallList);
+	});
+
+	it('should getListWithRandomItems() - 5 - Counter as negative number', function() {
+		var counter = -3;
+		var result = listUtils.getListWithRandomItems(mockedLists.smallList, counter);
+
+		assert.equal(result.length, 0);
+	});
+
+
+	it('should getListWithRandomItems() - 6 - get uniqe items', function(done) {
+		var isDuplicated = false;
+
+		var counter = 2;
+
+		var result = listUtils.getListWithRandomItems(mockedLists.randomList, counter);
+		var ids = {};
+
+		result.map(function(item) {
+			if (!ids[item._id]) {
+
+				ids[item._id] = true;
+			} else {
+				isDuplicated = true;
+			}
+
+		});
+		assert.isFalse(isDuplicated);
+		done();
+	});
+
 
 });
