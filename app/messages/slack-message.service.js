@@ -35,7 +35,7 @@ module.exports = {
 			var attachment = this.createAttachment(
                 item.name,
                 item.websiteUrl,
-                item.descripition,
+                item.description,
                 item.imageUrl,
                 fields
             );
@@ -128,7 +128,8 @@ module.exports = {
 			'title_link': titleLink,
 			'text': text,
 			'thumb_url': thumbUrl,
-			'fields': fields
+			'fields': fields,
+			'mrkdwn_in': ['fields']
 		};
 
 		return attachment;
