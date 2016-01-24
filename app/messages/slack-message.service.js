@@ -94,7 +94,7 @@ module.exports = {
 				short: true
 			},
 			{
-				title: enumsMessages.MENU_PRICE,
+				title: enumsMessages.LOCAL_TYPE,
 				value: emoticons,
 				short: true
 			},
