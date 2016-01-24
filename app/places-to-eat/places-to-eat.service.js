@@ -77,8 +77,7 @@ module.exports = {
 			var country = location.country || '';
 			var city = location.city || '';
 
-			var mapUrl = '';
-			mapUrl = query + address + '+' + city + '+' + country;
+			var mapUrl = `${query}${address}+${city}+${country}`;
 
 			newLocation = {
 				address,
