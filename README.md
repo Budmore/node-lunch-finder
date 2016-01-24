@@ -1,4 +1,5 @@
-# Lunch Finder [![Build Status](https://travis-ci.org/Budmore/node-lunch-finder.svg?branch=master)](https://travis-ci.org/Budmore/node-lunch-finder)
+# Lunch Finder [![Build Status](https://travis-ci.org/Budmore/node-lunch-finder.svg?branch=master)](https://travis-ci.org/Budmore/node-lunch-finder) [![Coverage Status](https://coveralls.io/repos/github/Budmore/node-lunch-finder/badge.svg?branch=master)](https://coveralls.io/github/Budmore/node-lunch-finder?branch=master)
+
 
 Find random place for the lunch.
 
