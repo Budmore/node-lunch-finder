@@ -27,7 +27,6 @@
     "mocha-mongoose": "^1.1.1",
     "mongodb": "^2.1.4",
     "nodemon": "^1.8.1",
-    "sinon": "^1.17.2",
-    "traceur-runner": "^2.0.1"
+    "sinon": "^1.17.2"
   }
 }

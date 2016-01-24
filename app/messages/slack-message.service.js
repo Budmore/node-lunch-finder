@@ -23,11 +23,13 @@ module.exports = {
 
 		places.map((item) => {
 			var emoticons = this.createEmoticons(item.tags);
+			var mapUrl = item.location && item.location.mapUrl;
+
 			var fields = this.createFields(
 				item.lunchPrice,
 				item.menuPrice,
 				emoticons,
-				item.location.mapUrl
+				mapUrl
 			);
 
 			var attachment = this.createAttachment(
