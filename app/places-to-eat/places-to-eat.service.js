@@ -78,7 +78,7 @@ module.exports = {
 			var city = location.city || '';
 
 			var mapUrl = `${query}${address}+${city}+${country}`;
-			mapUrl = encodeURI(mapUrl);
+			mapUrl = `<${encodeURI(mapUrl)}|maps.google.com>`;
 
 			newLocation = {
 				address,
