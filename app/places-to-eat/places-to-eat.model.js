@@ -15,9 +15,16 @@ var PlaceSchema = new Schema({
 	}],
 	location: {
 		mapUrl: String,
+		address: String,
+		city: String,
+		country: String,
 		lat: Number,
 		lng: Number
 	},
+
+	menuPrice: String,
+	lunchPrice: String,
+
 	modified: { type: Date, default: Date.now }
 });
 

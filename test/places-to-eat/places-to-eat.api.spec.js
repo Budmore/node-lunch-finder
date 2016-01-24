@@ -1,3 +1,5 @@
+var q = require('q');
+var sinon = require('sinon');
 var assert = require('chai').assert;
 var request = require('superagent');
 
@@ -7,6 +9,8 @@ var port = config.port;
 var version = config.version;
 var baseUrl = 'http://localhost:' + port + version;
 var PlaceModel = require('../../app/places-to-eat/places-to-eat.model');
+var placesToEatService = require('../../app/places-to-eat/places-to-eat.service');
+
 
 
 
@@ -25,81 +29,77 @@ describe('places-to-eat.api.js', function() {
 
 
 	describe('getAll()', function() {
+		var stub;
 
-		beforeEach('Insert 150x records to the db', function(done) {
-			var mockedPlace = {
-				name: 'Bar foo&boo ',
-				description: ''
-			};
-			var placesList = [];
+		beforeEach(function() {
+			stub = sinon.stub(placesToEatService, 'getAll');
+		});
 
-			for ( var i=0; i<150; i+=1) {
-				placesList.push(mockedPlace);
-			}
-
-			PlaceModel.create(placesList, function(err) {
-				assert.isNull(err);
-				done();
-			});
+		afterEach(function() {
+			stub.restore();
 		});
 
 		it('should getAll() - 1 - no limit param', function(done) {
+			var dfd = q.defer();
+			stub.returns(dfd.promise);
+
+			dfd.resolve();
+
 			request
 				.get(baseUrl + '/places-to-eat')
-				.end(function(err, res) {
-					assert.isNull(err);
-					assert.isArray(res.body.data);
-					assert.equal(res.status, 200);
-					assert.equal(res.body.count, config.queryLimit);
-
+				.end(function() {
+					assert.isTrue(stub.calledWithMatch(config.queryLimit));
 					done();
 				});
 		});
 
 		it('should getAll() - 2 - query with limit ', function(done) {
+			var dfd = q.defer();
+			stub.returns(dfd.promise);
+
+			dfd.resolve();
+
+
+			var mockedLimit = 1;
 			request
 				.get(baseUrl + '/places-to-eat')
 				.query({
-					limit: 1
+					limit: mockedLimit
 				})
-				.end(function(err, res) {
-					assert.equal(res.body.count, 1);
+				.end(function() {
+					assert.isTrue(stub.calledWithMatch(mockedLimit));
 					done();
 				});
 		});
 
 		it('should getAll() - 3 - query with negative number', function(done) {
+			var dfd = q.defer();
+			stub.returns(dfd.promise);
+
+			dfd.resolve();
+
+			var mockedLimit = -100;
 			request
 				.get(baseUrl + '/places-to-eat')
 				.query({
-					limit: -100
+					limit: mockedLimit
 				})
-				.end(function(err, res) {
-					assert.equal(res.body.count, config.queryLimit);
+				.end(function() {
+					assert.isTrue(stub.calledWithMatch(-mockedLimit));
 					done();
 				});
 		});
 
-		it('should getAll() - 4 - query with number 0', function(done) {
-			request
-				.get(baseUrl + '/places-to-eat')
-				.query({
-					limit: 0
-				})
-				.end(function(err, res) {
-					assert.equal(res.body.count, config.queryLimit);
-					done();
-				});
-		});
+		it('should getAll() - 4 - rejected request', function(done) {
+			var dfd = q.defer();
+			stub.returns(dfd.promise);
 
-		it('should getAll() - 5 - query without natural number', function(done) {
+			dfd.reject();
+
 			request
 				.get(baseUrl + '/places-to-eat')
-				.query({
-					limit: 1.25
-				})
 				.end(function(err, res) {
-					assert.equal(res.body.count, 1);
+					assert.equal(res.status, 500);
 					done();
 				});
 		});
@@ -110,48 +110,114 @@ describe('places-to-eat.api.js', function() {
 
 
 	describe('create()', function() {
+		var stub;
+
+		beforeEach(function() {
+			stub = sinon.stub(placesToEatService, 'create');
+		});
+
+		afterEach(function() {
+			stub.restore();
+		});
 
 		it('should create() - 1 - add new place', function(done) {
+			var dfd = q.defer();
+			stub.returns(dfd.promise);
+
+			var mockedResponse = { foo: 'boo' };
+			dfd.resolve(mockedResponse);
 
 			var bodyRequest = {
-				name: 'Bar Foo',
-				tags: [{
-					type: 'yolo',
-					name: 'yolo'
-				}]
+				name: 'Bar Foo'
 			};
 
 			request
 				.post(baseUrl + '/places-to-eat')
 				.send(bodyRequest)
 				.end(function(err, res) {
-					assert.isNull(err);
-					assert.isObject(res.body);
 					assert.equal(res.status, 201);
-
+					assert.deepEqual(res.body, mockedResponse);
 					done();
 				});
 
 		});
 
-		it('should create() - 2 - bad request', function(done) {
+		it('should create() - 2 - new location', function(done) {
+			var stub2 = sinon.stub(placesToEatService, 'newLocation');
+
+			var dfd = q.defer();
+			stub.returns(dfd.promise);
+			dfd.reject();
 
 			var bodyRequest = {
-				description: 'lorem ipsum'
+				name: 'Foo Boo',
+				location: {}
+			};
+
+			request
+				.post(baseUrl + '/places-to-eat')
+				.send(bodyRequest)
+				.end(function() {
+
+					assert.isTrue(stub2.called);
+					stub2.restore();
+					done();
+				});
+		});
+
+		it('should create() - 3 - reject handler error 400', function(done) {
+			var stub2 = sinon.stub(placesToEatService, 'newLocation');
+
+			var dfd = q.defer();
+			stub.returns(dfd.promise);
+
+			var mockedResponse = { name: 'ValidationError' };
+			dfd.reject(mockedResponse);
+
+
+			var bodyRequest = {
+				name: 'Foo Boo'
 			};
 
 			request
 				.post(baseUrl + '/places-to-eat')
 				.send(bodyRequest)
 				.end(function(err, res) {
-					assert.isNotNull(err);
-					assert.isObject(res.body);
 					assert.equal(res.status, 400);
 
+					assert.isFalse(stub2.called);
+					stub2.restore();
+
 					done();
 				});
-
 		});
+
+		it('should create() - 4 - reject handler error 500', function(done) {
+			var stub2 = sinon.stub(placesToEatService, 'newLocation');
+
+			var dfd = q.defer();
+			stub.returns(dfd.promise);
+
+			dfd.reject();
+
+
+			var bodyRequest = {
+				name: 'Foo Boo'
+			};
+
+			request
+				.post(baseUrl + '/places-to-eat')
+				.send(bodyRequest)
+				.end(function(err, res) {
+					assert.equal(res.status, 500);
+					assert.isFalse(stub2.called);
+					stub2.restore();
+
+					done();
+				});
+		});
+
+
 	});
 
 

@@ -1,10 +1,10 @@
-var q = require('q');
-var listUtils = require('../utils/list-utils');
+var q                  = require('q');
+var listUtils          = require('../utils/list-utils');
 var placesToEatService = require('../places-to-eat/places-to-eat.service');
 
 var ratingList = [];
 
-module.exports = {
+var service = {
 
 	/**
 	 * Generate new rating list.
@@ -51,13 +51,16 @@ module.exports = {
 
 };
 
+// @TODO: create event to regenerate rating list
+service.generateRatingList();
 
 /**
  * Create new rating list if recive event that some record has been updated.
  */
-// @TODO: create event to regenerate rating list
 /*var emitter = new EventEmitter();
 emitter.on('LIST_UPDATED', function() {
 	service.generateRatingList();
 });
 */
+
+module.exports = service;

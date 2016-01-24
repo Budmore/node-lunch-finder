@@ -24,8 +24,6 @@ var mockedLists = {
 		}
 
 	],
-
-
 	emptyList: [],
 	smallList: [
 		{ name: 'foo'},

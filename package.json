@@ -11,6 +11,7 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "mongoose": "^4.3.6",
+    "superagent": "^1.6.1",
     "q": "^1.4.1"
   },
   "scripts": {
@@ -27,6 +28,6 @@
     "mongodb": "^2.1.4",
     "nodemon": "^1.8.1",
     "sinon": "^1.17.2",
-    "superagent": "^1.6.1"
+    "traceur-runner": "^2.0.1"
   }
 }

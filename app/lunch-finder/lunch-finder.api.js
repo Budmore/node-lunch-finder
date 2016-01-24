@@ -1,19 +1,14 @@
 var lunchFinderService = require('./lunch-finder.service');
-
+var slackMessageService = require('../messages/slack-message.service');
 
 
 module.exports = {
 
 	random: function(req, res) {
-		// @TODO create init function or emit some event?
-		lunchFinderService.generateRatingList().then(function() {
-			var places = lunchFinderService.getRandomPlaces();
-			res.json(places);
+		var places = lunchFinderService.getRandomPlaces();
+		var message = slackMessageService.messageFormating(places);
 
-		}, function() {
-			res.status(200).send('Sorry, no results');
-		});
-
+		res.json(message);
 	}
 
 };

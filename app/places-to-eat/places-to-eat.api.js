@@ -1,3 +1,4 @@
+var placesToEatService = require('./places-to-eat.service');
 var PlaceModel = require('./places-to-eat.model');
 var config = require('../../config');
 
@@ -26,23 +27,14 @@ module.exports = {
 			limit = queryLimit > 0 ? Math.min(queryLimit, maxLimit) : maxLimit;
 		}
 
-
-
-		PlaceModel
-			.find({})
-			.limit(limit)
-			.exec(function(err, places) {
-				if (err) {
-					return res.status(500).send(err);
-				}
-
-				var _result = {
-					count: places.length,
-					data: places
-				};
-
-				res.json(_result);
-			});
+		placesToEatService.getAll(limit).then(
+			function getAllSuccess(data) {
+				res.json(data);
+			},
+			function getAllError(reason) {
+				return res.status(500).send(reason);
+			}
+		);
 	},
 
 	/**
@@ -55,7 +47,6 @@ module.exports = {
 	 * @param  {object} res Respond data
 	 */
 	create: function(req, res) {
-
 		var newPlace = {
 			name: req.body.name,
 			description: req.body.description,
@@ -63,25 +54,30 @@ module.exports = {
 			imageUrl: req.body.imageUrl,
 			websiteUrl: req.body.websiteUrl,
 			tags: req.body.tags,
-			location: req.body.location
+			menuPrice: req.body.menuPrice,
+			lunchPrice: req.body.lunchPrice,
+			location: {}
 		};
 
+		var location = req.body.location;
+		if (location) {
+			newPlace.location = placesToEatService.newLocation(location);
+		}
 
-		var createPlace = new PlaceModel(newPlace);
-
-		createPlace.save(function(err, doc) {
-			// @TODO create generic error handler.
-			if (err) {
-				if (err.name === 'ValidationError') {
+		placesToEatService.create(newPlace).then(
+			function saveSuccess(data) {
+				res.status(201).send(data);
+			},
+			function saveError(err) {
+				// @TODO create generic error handler.
+				if (err && err.name === 'ValidationError') {
 					return res.status(400).send(err);
-
 				}
+
 				return res.status(500).send(err);
 			}
+		);
 
-			res.status(201).send(doc);
-
-		});
 	},
 
 	/**
@@ -133,7 +129,11 @@ module.exports = {
 		delete updatedPlace._id;
 		updatedPlace.modified = new Date();
 
-		PlaceModel.findOneAndUpdate(query, {$set: updatedPlace}, {new: true}, function(err, doc) {
+		PlaceModel.findOneAndUpdate(query, {
+			$set: updatedPlace
+		}, {
+			new: true
+		}, function(err, doc) {
 			// @TODO create generic error handler.
 			if (err) {
 				if (err.name === 'CastError') {
