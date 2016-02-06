@@ -50,8 +50,6 @@ module.exports = {
 		var newPlace = {
 			name: req.body.name,
 			description: req.body.description,
-			rating: defaultRating,
-			imageUrl: req.body.imageUrl,
 			websiteUrl: req.body.websiteUrl,
 			tags: req.body.tags,
 			menuPrice: req.body.menuPrice,
@@ -109,7 +107,7 @@ module.exports = {
 
 	/**
 	 * Update place. Find it by id in the request param.
-	 * Can't update properties: rating, _id, modified
+	 * Can't update properties:  _id, modified
 	 *
 	 * Method: PUT
 	 * http://api.lunchfinder.budmore.pl/v1/places-to-eat/:id
@@ -125,7 +123,6 @@ module.exports = {
 		};
 
 		var updatedPlace = req.body;
-		delete updatedPlace.rating;
 		delete updatedPlace._id;
 		updatedPlace.modified = new Date();
 

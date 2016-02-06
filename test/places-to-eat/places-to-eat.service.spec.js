@@ -109,4 +109,40 @@ describe('places-to-eat.service.js', function() {
 		assert.equal(newLocation.address, mocked.address);
 	});
 
+
+	// getRandomPlace()
+
+
+	describe('getRandomPlace()', function() {
+		var mockedCounter = 5;
+
+		beforeEach('Insert 10x records to the db', function(done) {
+			var placesList = [];
+
+			for ( var i=0; i<mockedCounter; i+=1) {
+				var mockedPlace = {
+					name: 'Bar foo&boo ' + i,
+					description: ''
+				};
+				placesList.push(mockedPlace);
+			}
+
+			PlaceModel.create(placesList, function(err) {
+				assert.isNull(err);
+				done();
+			});
+		});
+
+		it('should getRandomPlace() - 1 - return object', function(done) {
+
+			PlaceToEatService.getRandomPlace().then(function(data) {
+				assert.isObject(data);
+				done();
+			});
+
+		});
+
+	});
+
+
 });

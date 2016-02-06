@@ -8,7 +8,6 @@ var version = config.version;
 var baseUrl = 'http://localhost:' + port + version;
 
 var sinon = require('sinon');
-var lunchFinderService = require('../../app/lunch-finder/lunch-finder.service');
 var slackMessageService = require('../../app/messages/slack-message.service');
 
 describe('lunch-finder.api.js', function() {
@@ -22,15 +21,13 @@ describe('lunch-finder.api.js', function() {
 	});
 
 
-	var stub, stub2;
+	var stub2;
 
 	beforeEach(function() {
-		stub = sinon.stub(lunchFinderService, 'getRandomPlaces');
 		stub2 = sinon.stub(slackMessageService, 'messageFormating');
 	});
 
 	afterEach(function() {
-		stub.restore();
 		stub2.restore();
 	});
 
@@ -56,16 +53,13 @@ describe('lunch-finder.api.js', function() {
 			boo: 'boo'
 		};
 
-		stub.returns(mockedRespond.foo);
 		stub2.returns(mockedRespond.boo);
 
 		request
 			.post(baseUrl + '/random')
 			.send(bodyRequest)
 			.end(function(err, res) {
-				assert.isTrue(stub.called);
 				assert.isTrue(stub2.called);
-				assert.isTrue(stub2.calledWithMatch(mockedRespond.foo));
 				assert.equal(res.body, mockedRespond.boo);
 
 				done();

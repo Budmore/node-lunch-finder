@@ -90,5 +90,34 @@ module.exports = {
 
 
 		return newLocation;
+	},
+
+	/**
+	 * Get random element from collection.
+	 *
+	 * Count how many records is in the collection,
+	 * Then get one skipped by random number.
+	 *
+	 * @return {promise}
+	 */
+	getRandomPlace: function() {
+		var dfd = q.defer();
+		PlaceModel.count().exec(function(err, count){
+			var random = Math.floor(Math.random() * count );
+
+			PlaceModel
+				.findOne()
+				.skip(random)
+				.exec(function(err, randomPlace) {
+					if (err) {
+						return dfd.reject(err);
+					}
+
+					dfd.resolve(randomPlace);
+				});
+		});
+
+		return dfd.promise;
 	}
+
 };

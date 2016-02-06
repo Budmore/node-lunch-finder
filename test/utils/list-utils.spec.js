@@ -11,16 +11,12 @@ var mockedLists = {
 			maps: 'https://www.google.pl/maps/place/Burger+Ltd/@51.1105569,17.0229197,17z/data=!3m1!4b1!4m2!3m1!1s0x470fc20ae152df43:0xa82303f115921c69',
 			websiteUrl: 'http://burgerltd.pl/',
 			menuUrl: 'http://burgerltd.pl/',
-			rating: 1000
-
 		},
 		{
 			title: 'Random 1',
-			rating: 1000
 		},
 		{
 			title: 'Random 2',
-			rating: 1000
 		}
 
 	],
@@ -62,31 +58,6 @@ describe('list-utils.js', function () {
 		var item = listUtils.getRandomItem(items);
 
 		assert.equal(item, items[0]);
-	});
-
-
-	// getListByRating()
-
-	it('should getListByRating() - 1 - create rated list', function() {
-		var ratedList = listUtils.getListByRating(mockedLists.lunch);
-
-		var counter = 0;
-		mockedLists.lunch.map(function(item) {
-			counter += item.rating && item.rating;
-		});
-
-		assert.equal(ratedList.length, counter);
-	});
-
-	it('should getListByRating() - 2 - incorrect argument', function() {
-		var ratedList = listUtils.getListByRating();
-
-		assert.isUndefined(ratedList);
-	});
-
-	it('should getListByRating() - 3 - empty list', function() {
-		var result = listUtils.getListByRating(mockedLists.emptyList);
-		assert.equal(result.length, 0);
 	});
 
 

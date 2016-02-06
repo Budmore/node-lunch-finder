@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 var PlaceSchema = new Schema({
 	name: {type: String, required: true},
 	description: String,
-	rating: Number,
 	imageUrl: String,
 	websiteUrl: String,
 	tags: [{
