@@ -3,7 +3,6 @@ var PlaceModel = require('./places-to-eat.model');
 var config = require('../../config');
 
 var maxLimit = config.queryLimit || 100;
-var defaultRating = config.defaultRating || 1000;
 
 module.exports = {
 

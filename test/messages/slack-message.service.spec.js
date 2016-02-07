@@ -6,7 +6,7 @@ var slackMessageService = require('../../app/messages/slack-message.service');
 
 describe('slack-message.service.js', function() {
 
-	var mocked = {
+	var mockedData = {
 		title: 'Foo',
 		titleLink: 'Boo',
 		text: 'Lorem',
@@ -15,24 +15,24 @@ describe('slack-message.service.js', function() {
 	};
 
 	it('should createAttachment() - 1 - default color', function() {
-		var result = slackMessageService.createAttachment(mocked.title);
+		var result = slackMessageService.createAttachment(mockedData.title);
 		assert.property(result, 'color');
 	});
 
 	it('should createAttachment() - 2 - default object', function() {
 		var result = slackMessageService.createAttachment(
-            mocked.title,
+            mockedData.title,
             null,
-            mocked.text,
+            mockedData.text,
             null,
             null,
-            mocked.color
+            mockedData.color
         );
 
-		assert.equal(result.color, mocked.color);
-		assert.equal(result.title, mocked.title);
+		assert.equal(result.color, mockedData.color);
+		assert.equal(result.title, mockedData.title);
 		assert.equal(result.fields, null);
-		assert.equal(result.text, mocked.text);
+		assert.equal(result.text, mockedData.text);
 	});
 
 

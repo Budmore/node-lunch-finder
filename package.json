@@ -11,8 +11,9 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "mongoose": "^4.3.6",
-    "superagent": "^1.6.1",
-    "q": "^1.4.1"
+    "node-horseman": "^2.8.2",
+    "q": "^1.4.1",
+    "superagent": "^1.6.1"
   },
   "scripts": {
     "start": "NODE_ENV=development nodemon app.js",

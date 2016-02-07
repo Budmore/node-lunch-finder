@@ -20,7 +20,6 @@ if (NODE_ENV && config.db && config.db[NODE_ENV]){
 }
 
 
-
 // START THE SERVER
 // -----------------------------------------------------------------------------
 var server;
@@ -39,7 +38,6 @@ if (NODE_ENV === 'development') {
 }
 
 
-
 // MIDDLEWARES
 // -----------------------------------------------------------------------------
 var allowCrossDomain = function(req, res, next) {
@@ -53,15 +51,18 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 
-
 // ROUTES
 // -----------------------------------------------------------------------------
 
-var router = express.Router();
+var router = new express.Router();
 
 var lunchFinderApi = require('./app/lunch-finder/lunch-finder.api');
 var placesToEatApi = require('./app/places-to-eat/places-to-eat.api');
 
+
+// router.get('/', function(req, res) {
+// 	res.send('go to /v1');
+// });
 
 app.use(config.version, router); //Add url prefix eg.'/api/v1'
 
@@ -71,7 +72,8 @@ router.get('/', function(req, res) {
 
 router
 	// Lunch finder
-	.post('/random', lunchFinderApi.random)
+	.post('/command', lunchFinderApi.command)
+	.post('/random', lunchFinderApi.getRandomPlace)
 
 	// Places to eat
 	.post('/places-to-eat', placesToEatApi.create)
