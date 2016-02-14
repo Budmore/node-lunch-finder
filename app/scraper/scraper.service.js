@@ -1,44 +1,33 @@
+var superagent = require('superagent');
 var q = require('q');
-var Horseman = require('node-horseman');
-var horseman = new Horseman();
 
 module.exports = {
 
-	scrapMenu: function() {
+	scrapFacebookPosts: function() {
 
 		var dfd = q.defer();
-		horseman
-			.userAgent('Mozilla/5.0 (Windows NT 6.1; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0')
-			.open('https://pl-pl.facebook.com/zztopwroclaw/')
-			.waitForSelector('.scaledImageFitWidth')
-			.evaluate( function(selector){
-				// This code is executed inside the browser.
-				// It's sandboxed from Node, and has no access to anything
-				// in Node scope, unless you pass it in, like we did with "selector".
-				//
-				// You do have access to jQuery, via $, automatically.
-				var src;
+		var zzTopUrl = 'https://graph.facebook.com/v2.5/zztopwroclaw/posts?fields=full_picture&limit=1&access_token=CAACEdEose0cBAPPMTCf2R8GHtIslYj1HR3l5XdNhlg162mN3oDTpwAPp9AIiZC3AOGmiZBWXuruKliMUiZCzzPZB1dZCWKOMHVjKrG293fIL5wqwoUWJKawPDRUQAFmK5AZAErB7Pl3Knz7WZAKHNKeZCZAheCaXbYIcBDd3O9iKi2jxZAi6mImfqCa9WpppZBNWlKFD4P7zKku6XPIAA7VvTVp'
 
-				$( selector ).each(function(){
-					var width = $(this).attr('width');
+		superagent
+			.get(zzTopUrl)
+			.end(function(err, response) {
+
+				if (err) {
+					dfd.reject(err);
+				}
 
 
-					console.log('before', width);
+				var responseText = JSON.parse(response.text || '{}');
 
-					if (width > 300) {
-						src = $(this).attr('src');
-						return false;
-					}
-				});
+				var data = responseText.data;
 
-				return src;
+				if (data && data.constructor === Array) {
+					var fullPicture = data[0] && data[0].full_picture;
+					dfd.resolve(fullPicture);
+				} else {
+					dfd.reject(data);
+				}
 
-
-			}, '.scaledImageFitWidth')
-
-			.then(function(size){
-				dfd.resolve(size);
-				return horseman.close();
 			});
 
 		return dfd.promise;

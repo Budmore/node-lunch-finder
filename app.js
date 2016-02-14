@@ -60,10 +60,6 @@ var lunchFinderApi = require('./app/lunch-finder/lunch-finder.api');
 var placesToEatApi = require('./app/places-to-eat/places-to-eat.api');
 
 
-// router.get('/', function(req, res) {
-// 	res.send('go to /v1');
-// });
-
 app.use(config.version, router); //Add url prefix eg.'/api/v1'
 
 router.get('/', function(req, res) {

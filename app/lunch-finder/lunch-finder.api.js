@@ -1,4 +1,4 @@
-var request = require('superagent');
+var superagent = require('superagent');
 var placesToEat = require('../places-to-eat/places-to-eat.service');
 var slackMessageService = require('../messages/slack-message.service');
 var scaperService = require('../scraper/scraper.service');
@@ -31,11 +31,18 @@ var lunchFinderApi = {
 			'text': ''
 		};
 
-		scaperService.scrapMenu(name).then(function(data) {
+		scaperService.scrapFacebookPosts(name).then(function(data) {
 			respondMessage.text = data;
-			request
+			superagent
 				.post(responseUrl)
-				.send(respondMessage);
+				.send(respondMessage)
+				.end(function(err, response) {
+					if (err) {
+						console.error(err);
+					}
+
+					console.log('response', response && response.text);
+				});
 		});
 	},
 
@@ -44,6 +51,8 @@ var lunchFinderApi = {
 		var responseUrl = req.body.response_url;
 		var command = req.body.text.toLowerCase();
 		command = command.trim();
+
+		console.log('Mhmmm', responseUrl);
 
 		var message = 'Available commands: "' + availableCommands.join('", "') + '"';
 

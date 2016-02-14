@@ -11,7 +11,6 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "mongoose": "^4.3.6",
-    "node-horseman": "^2.8.2",
     "q": "^1.4.1",
     "superagent": "^1.6.1"
   },
