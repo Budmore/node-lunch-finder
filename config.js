@@ -5,13 +5,12 @@ module.exports = {
 	"version": "/api/v1",
 	"secret": "#7D0vqas#!@#p[{+DF2^%$yq1w5Qusok#@B1312=)*(&asd%QAd312BrvuGMKbIf_",
 	"db": {
-		"production": "mongodb://user:pass@domain.pl:1234/lunch-finder-v1-prod",
-		"development": "mongodb://localhost/lunch-finder-dev",
+		"development": "mongodb://mo14073_lunch:4sZkxh6BB76cMuaGYLM5@db0.mydevil.net/mo14073_lunch",
 		"spec": "mongodb://localhost/lunch-finder-specs"
 	},
 	"fb": {
-		"appId": "SAMPLE175265299727",
-		"appSecret": "SAMPLE424583e6d939c7d16bf188"
+		"appId": "1752658888299727",
+		"appSecret": "71bab8336e424583a6c939c7d16af177"
 	},
 	"emails": {
 		"contact": "contact@budmore.pl"

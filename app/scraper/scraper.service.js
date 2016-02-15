@@ -1,21 +1,28 @@
 var superagent = require('superagent');
+var config = require('../../config');
 var q = require('q');
 
+var domain = 'https://graph.facebook.com/v2.5';
+var credentials = config.fb;
 module.exports = {
 
 	scrapFacebookPosts: function() {
 
 		var dfd = q.defer();
-		var zzTopUrl = 'https://graph.facebook.com/v2.5/zztopwroclaw/posts?fields=full_picture&limit=1&access_token=CAACEdEose0cBAPPMTCf2R8GHtIslYj1HR3l5XdNhlg162mN3oDTpwAPp9AIiZC3AOGmiZBWXuruKliMUiZCzzPZB1dZCWKOMHVjKrG293fIL5wqwoUWJKawPDRUQAFmK5AZAErB7Pl3Knz7WZAKHNKeZCZAheCaXbYIcBDd3O9iKi2jxZAi6mImfqCa9WpppZBNWlKFD4P7zKku6XPIAA7VvTVp'
+		var zzTopUrl = domain + '/zztopwroclaw/posts';
 
 		superagent
 			.get(zzTopUrl)
+			.query({
+				fields: 'full_picture',
+				limit: 1,
+				'access_token': credentials.appId + '|' + credentials.appSecret
+			})
 			.end(function(err, response) {
 
 				if (err) {
-					dfd.reject(err);
+					return dfd.reject(err);
 				}
-
 
 				var responseText = JSON.parse(response.text || '{}');
 

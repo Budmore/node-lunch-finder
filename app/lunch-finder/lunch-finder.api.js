@@ -24,7 +24,7 @@ var lunchFinderApi = {
 
 	},
 
-	scrapLunchMenu: function(responseUrl, name) {
+	scrapLunchMenu: function(responseUrl, name, res) {
 
 		var respondMessage = {
 			'response_type': 'in_channel',
@@ -33,26 +33,15 @@ var lunchFinderApi = {
 
 		scaperService.scrapFacebookPosts(name).then(function(data) {
 			respondMessage.text = data;
-			superagent
-				.post(responseUrl)
-				.send(respondMessage)
-				.end(function(err, response) {
-					if (err) {
-						console.error(err);
-					}
-
-					console.log('response', response && response.text);
-				});
+			res.json(respondMessage);
 		});
 	},
 
 	command: function(req, res) {
 
 		var responseUrl = req.body.response_url;
-		var command = req.body.text.toLowerCase();
-		command = command.trim();
-
-		console.log('Mhmmm', responseUrl);
+		var command = req.body.text && req.body.text.toLowerCase();
+		command = command && command.trim();
 
 		var message = 'Available commands: "' + availableCommands.join('", "') + '"';
 
@@ -67,8 +56,7 @@ var lunchFinderApi = {
 			case 'zz':
 			case 'zztop':
 			case 'zupa':
-				lunchFinderApi.scrapLunchMenu(responseUrl, 'zztop');
-				res.json('Got it.');
+				lunchFinderApi.scrapLunchMenu(responseUrl, 'zztop', res);
 				break;
 
 			// case '!help':
@@ -78,7 +66,7 @@ var lunchFinderApi = {
 
 
 			default:
-				res.json(message);
+				res.send(message);
 				break;
 		}
 
