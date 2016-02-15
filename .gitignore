@@ -3,5 +3,5 @@ coverage/
 tmp/
 *sublime-*
 *-debug.log
-config.js
+config.json
 .tmp

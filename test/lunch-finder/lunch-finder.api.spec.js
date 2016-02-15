@@ -11,7 +11,7 @@ var sinon = require('sinon');
 var lunchFinderApi = require('../../app/lunch-finder/lunch-finder.api');
 var slackMessageService = require('../../app/messages/slack-message.service');
 
-describe('lunch-finder.api.js', function() {
+describe.skip('lunch-finder.api.js', function() {
 
 	before(function(done) {
 		app.startServer(port, done);
