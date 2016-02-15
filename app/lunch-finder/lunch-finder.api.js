@@ -33,15 +33,15 @@ var lunchFinderApi = {
 
 		scaperService.scrapFacebookPosts(name).then(function(data) {
 			respondMessage.text = data;
-			res.json(data);
+			res.json(respondMessage);
 		});
 	},
 
 	command: function(req, res) {
 
 		var responseUrl = req.body.response_url;
-		var command = req.body.text.toLowerCase();
-		command = command.trim();
+		var command = req.body.text && req.body.text.toLowerCase();
+		command = command && command.trim();
 
 		var message = 'Available commands: "' + availableCommands.join('", "') + '"';
 
