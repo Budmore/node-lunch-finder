@@ -1,21 +1,24 @@
 # Lunch Finder [![Build Status](https://travis-ci.org/Budmore/node-lunch-finder.svg?branch=master)](https://travis-ci.org/Budmore/node-lunch-finder)
 
 
-Find random place for the lunch.
+Find random place for the lunch
 
+
+| Command       | Text        | Alias           |
+| ------------- | :-----------| :-------------  |
+| /lunch        | help        | !help, h        |
+| /lunch        | random      | !random, rng    |
+| /lunch        | zzTop       | zz, zztop, zupa |
+
+
+Api docs [https://api.slack.com/slash-commands](https://api.slack.com/slash-commands)
 
 
 ## Endpoints
 
-#### Slack commands
-
+#### Lunch Finder (ready for the "slash" commands)
 - **<code>POST</code> /command**
-```
-Slack commands:
-  /lunch zztop
-  /lunch random
-```
-
+- **<code>POST</code> /random**
 
 #### Places
 
