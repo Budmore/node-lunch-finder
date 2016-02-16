@@ -4,15 +4,22 @@ var q = require('q');
 
 var domain = 'https://graph.facebook.com/v2.5';
 var credentials = config.fb;
+
 module.exports = {
 
-	scrapFacebookPosts: function() {
+	/**
+	 * @param  {string} name
+	 * @return {promise}
+	 */
+	getPictureFromFacebookPost: function(name) {
+
+		var pageId = name || 'zztopwroclaw';
 
 		var dfd = q.defer();
-		var zzTopUrl = domain + '/zztopwroclaw/posts';
+		var pageUrl = domain + '/' + pageId + '/posts';
 
 		superagent
-			.get(zzTopUrl)
+			.get(pageUrl)
 			.query({
 				fields: 'full_picture',
 				limit: 1,

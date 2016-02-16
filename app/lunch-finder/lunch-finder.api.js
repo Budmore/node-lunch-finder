@@ -9,6 +9,10 @@ var availableCommands = [
 	'zzTop'
 ];
 
+function errorHandler(res, err) {
+	return res.send(err);
+}
+
 var lunchFinderApi = {
 
 	getRandomPlace: function(req, res) {
@@ -18,34 +22,34 @@ var lunchFinderApi = {
 			places.push(randomPlace);
 
 			var message = slackMessageService.messageFormating(places);
-
 			res.json(message);
-		});
+
+		}, errorHandler.bind(this, res));
 
 	},
 
-	scrapLunchMenu: function(responseUrl, name, res) {
+	scrapLunchMenu: function(req, res, name) {
 
 		var respondMessage = {
 			'response_type': 'in_channel',
 			'text': ''
 		};
 
-		scaperService.scrapFacebookPosts(name).then(function(data) {
+		scaperService.getPictureFromFacebookPost(name).then(function(data) {
+
 			respondMessage.text = data;
 			res.json(respondMessage);
-		});
+
+		}, errorHandler.bind(this, res));
 	},
 
 	command: function(req, res) {
 
-		var responseUrl = req.body.response_url;
-		var command = req.body.text && req.body.text.toLowerCase();
-		command = command && command.trim();
-
+		var text = req.body.text && req.body.text.toString();
+		text = text && text.toLowerCase().trim();
 		var message = 'Available commands: "' + availableCommands.join('", "') + '"';
 
-		switch (command) {
+		switch (text) {
 
 			case '!random':
 			case 'random':
@@ -56,14 +60,16 @@ var lunchFinderApi = {
 			case 'zz':
 			case 'zztop':
 			case 'zupa':
-				lunchFinderApi.scrapLunchMenu(responseUrl, 'zztop', res);
+				lunchFinderApi.scrapLunchMenu(req, res, 'zztopwroclaw');
 				break;
 
-			// case '!help':
-			// case 'help':
-			// case 'h':
-			//     var message = lunchFinderApi.getHelpMessage();
-
+/*
+			case '!help':
+			case 'help':
+			case 'h':
+				message = lunchFinderApi.getHelpMessage();
+				break;
+*/
 
 			default:
 				res.send(message);

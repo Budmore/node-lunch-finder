@@ -3,8 +3,31 @@
 
 Find random place for the lunch.
 
+
+
+## Endpoints
+
+#### Slack commands
+
+- **<code>POST</code> /command**
+```
+Slack commands:
+  /lunch zztop
+  /lunch random
+```
+
+
+#### Places
+
+- **<code>POST</code> /places-to-eat**
+- **<code>GET</code> /places-to-eat**
+- **<code>GET</code> /places-to-eat/:id**
+- **<code>PUT</code> /places-to-eat/:id**
+- **<code>DELETE</code> /places-to-eat/:id**
+
+
 ## Build & development
-Create config.js (follow by the config.example.js)
+Create config.json (follow by the config.example.json)
 
 ```
 npm install
@@ -13,7 +36,7 @@ npm start
 ```
 
 Run `npm install` for building and `npm start` for preview.
-Do not commit your config.js file to any repo!
+Do not commit your config.json file to any repo!
 
 
 ## Testing
